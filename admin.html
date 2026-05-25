@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>
+Dashboard Admin
+</title>
+
+<link
+rel="stylesheet"
+href="style.css"
+/>
+
+</head>
+
+<body>
+
+<header class="admin-header">
+
+<h1>
+📊 Dashboard BRANS-STORE
+</h1>
+
+</header>
+
+<section class="stats">
+  
+  <section class="analytics">
+
+<h2>
+📊 Analytics
+</h2>
+
+<canvas id="salesChart"></canvas>
+
+</section>
+
+<section class="orders-section">
+
+<h2>
+🧾 Historique Commandes
+</h2>
+
+<div id="ordersList"></div>
+
+</section>
+
+<input
+id="category"
+placeholder="Catégorie"
+/>
+
+<div class="stat-card">
+<h2 id="totalProducts">0</h2>
+<p>Produits</p>
+</div>
+
+<div class="stat-card">
+<h2 id="totalOrders">0</h2>
+<p>Commandes</p>
+</div>
+
+<div class="stat-card">
+<h2 id="totalRevenue">0 FCFA</h2>
+<p>Revenus</p>
+</div>
+
+</section>
+
+<section class="add-product">
+
+<h2>
+Ajouter Produit
+</h2>
+
+<input
+id="name"
+placeholder="Nom produit"
+/>
+
+<input
+id="price"
+placeholder="Prix"
+/>
+
+<input
+id="stock"
+placeholder="Stock"
+/>
+
+<input
+type="file"
+id="image"
+accept="image/*"
+/>
+
+<label>
+
+<input
+type="checkbox"
+id="promo"
+/>
+
+Promotion
+
+</label>
+
+<button onclick="addProduct()">
+Ajouter
+</button>
+
+</section>
+
+<section
+id="adminProducts"
+class="products-grid"
+>
+</section>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
+<script src="firebase.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="admin.js"></script>
+
+</body>
+</html>
