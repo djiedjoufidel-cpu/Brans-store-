@@ -296,6 +296,9 @@ db.collection("products")
 .doc(id)
 .delete();
 
+}
+
+// VIEW ORDER ITEMS
 function viewItems(items){
 
 let text = "";
