@@ -224,48 +224,116 @@ Notification.requestPermission();
 async function addProduct(){
 
 const name =
-document.getElementById("name")
-.value;
+document.getElementById("name").value;
 
 const price =
-document.getElementById("price")
-.value;
+document.getElementById("price").value;
 
 const stock =
-document.getElementById("stock")
-.value;
+document.getElementById("stock").value;
 
 const category =
-document.getElementById("category")
-.value;
+document.getElementById("category").value;
 
 const promo =
-document.getElementById("promo")
-.checked;
+document.getElementById("promo").checked;
 
 const imageFile =
-document.getElementById("image")
-.files[0];
+document.getElementById("image").files[0];
 
 if(!imageFile){
 
-alert("Choisir image");
+alert("Choisir une image");
 
 return;
 
 }
 
-const storageRef =
-storage.ref(
-"products/" +
-Date.now() +
-imageFile.name
+// CLOUDINARY
+const formData = new FormData();
+
+formData.append("file", imageFile);
+
+formData.append(
+  "upload_preset",
+  "brans-store.vercel.app"
 );
 
-await storageRef.put(imageFile);
+const response = await fetch(
+  "https://api.cloudinary.com/v1_1/dtiwsjch8/image/upload",
+  {
+    method: "POST",
+    body: formData
+  }
+);
 
-const imageUrl =
-await storageRef.getDownloadURL();
+const data = await response.json();
+
+if(!data.secure_url){
+
+console.error(data);
+
+alert("Erreur upload image");
+
+return;
+
+}
+
+const imageUrl = data.secure_url;
+
+// FIRESTORE
+await db.collection("products").add({
+
+name,
+price: Number(price),
+stock: Number(stock),
+category,
+promo,
+image: imageUrl,
+whatsapp: "237651715307",
+createdAt: Date.now()
+
+});
+
+alert("Produit ajouté");
+
+// reset formulaire
+document.getElementById("name").value = "";
+document.getElementById("price").value = "";
+document.getElementById("stock").value = "";
+document.getElementById("category").value = "";
+document.getElementById("promo").checked = false;
+document.getElementById("image").value = "";
+
+}
+
+// Upload Cloudinary
+const formData = new FormData();
+
+formData.append("file", imageFile);
+
+formData.append(
+  "upload_preset",
+  "brans-store.vercel.app"
+);
+
+const response = await fetch(
+  "https://api.cloudinary.com/v1_1/dtiwsjch8/image/upload",
+  {
+    method: "POST",
+    body: formData
+  }
+);
+
+const data = await response.json();
+
+if (!data.secure_url) {
+  console.error(data);
+  alert("Erreur upload image");
+  return;
+}
+
+const imageUrl = data.secure_url;
 
 db.collection("products")
 .add({

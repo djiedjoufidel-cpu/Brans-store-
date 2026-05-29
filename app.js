@@ -24,9 +24,35 @@ id: doc.id,
 
 renderProducts(products);
 
-<button
-onclick="addWishlist('${p.name}')"
->
+});
+
+}
+
+function renderProducts(products){
+
+const productsContainer =
+document.getElementById("products");
+
+productsContainer.innerHTML = "";
+
+products.forEach(p=>{
+
+productsContainer.innerHTML += `
+<div class="product-card">
+
+<img src="${p.image}" class="product-image">
+
+<h3>${p.name}</h3>
+
+<p>${p.price} FCFA</p>
+
+<p>Stock : ${p.stock}</p>
+
+<button onclick="addToCart('${p.id}')">
+🛒 Ajouter
+</button>
+
+<button onclick="addWishlist('${p.name}')">
 ❤️ Favoris
 </button>
 
@@ -34,11 +60,13 @@ onclick="addWishlist('${p.name}')"
 
 ⭐⭐⭐⭐☆
 
-<p>
-Très bon produit
-</p>
+<p>Très bon produit</p>
 
 </div>
+
+</div>
+`;
+
 });
 
 }
